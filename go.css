@@ -213,8 +213,8 @@ body {
 .btnpower {
   width: 20px;
   height: 20px;
-  margin-top: 0%;
-  margin-left: 0%;
+  margin-top: -35px;
+  margin-left: -20px;
   background: darkred;
   border-radius: 4px;
   cursor: pointer;

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Дистанційне вмикання ПК</title>
+  <link rel="stylesheet" href="go.css">
+</head>
+<body>
+  <div id="setup">
+    <div id="remote">
+      <div id="remote-led"></div> <!-- Лампочка на пульті -->
+      <button onclick="pressedToggle()">ON/OFF</button>
+      <button onclick="pressedEject()">Витягти диск</button>
+      <button id="speakers-btn" onclick="toggleSpeakers()">ON/OFF колонки</button>
+      <button>-----</button> <!-- Пустий блок -->
+      <button onclick="pressedPlayPause()">Пуск/Пауза</button>
+    </div>
+
+    <div id="speakers-container">
+      <div class="speaker">
+        <div class="inner-speaker"></div>
+        <div class="inner-speaker"></div>
+      </div>
+      <div class="speaker">
+        <div class="inner-speaker"></div>
+        <div class="inner-speaker"></div>
+      </div>
+      <div class="speaker">
+        <div class="inner-speaker"></div>
+        <div class="inner-speaker"></div>
+      </div>
+    </div>
+
+    <div id="btnpower" onclick="togglePower()"></div>
+    <div id="computer">
+      <div id="monitor-container">
+        <div id="monitor">
+          <img id="monitor-img" style="display: none;" width="100%" height="100%">
+        </div>
+        <div id="monitor-leg"></div>
+        <div id="monitor-base"></div>
+      </div>
+      <div id="system-block">
+        <div id="led"></div>
+        <div class="fake-btn"></div>
+        <div class="fake-btn small"></div>
+        <div class="fake-btn small2" onclick="toggleSpeakers()"> <!-- Перемикаємо функцію -->
+          <div class="btnpower" onclick="togglePower()"></div>
+        </div>
+        <div class="fake-btn small3"><div class="fake-btn small4"></div></div>
+        <div class="disko"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="signal-visualization" class="hidden"></div>
+  <div id="waves-container"></div>
+
+  <script>
+    let isOn = false;
+    let slideshowInterval = null;
+    let blinkRemoteInterval = null;
+    let blinkCount = 0;
+    let signalAnimation = null;
+    let isPlaying = true;
+
+    const images = [
+      "Po1.jpg",
+      "Po2.gif",
+      "Po3.png",
+      "Po4.jpg",
+      "Po5.jpg"
+    ];
+    let imageIndex = 0;
+
+    function togglePower() {
+      const monitorImg = document.getElementById("monitor-img");
+      const led = document.getElementById("led");
+
+      if (!isOn) {
+        isOn = true;
+        monitorImg.style.display = "block";
+        monitorImg.src = "Zag.gif";
+        led.style.animation = "none";
+        led.style.background = "red";
+        setTimeout(() => {
+          led.style.animation = "ledBlink 2s infinite";
+        }, 5000);
+        setTimeout(() => {
+          imageIndex = 0;
+          monitorImg.src = images[imageIndex];
+          slideshowInterval = setInterval(() => {
+            imageIndex = (imageIndex + 1) % images.length;
+            monitorImg.src = images[imageIndex];
+          }, 4000);
+        }, 4000);
+      } else {
+        isOn = false;
+        monitorImg.style.display = "none";
+        clearInterval(slideshowInterval);
+        led.style.animation = "none";
+        led.style.background = "gray";
+      }
+    }
+
+    function ejectDisk() {
+      const disko = document.querySelector(".disko");
+      const newDisk = document.createElement("div");
+      newDisk.classList.add("disk");
+      disko.appendChild(newDisk);
+      requestAnimationFrame(() => {
+        newDisk.classList.add("animate");
+      });
+      newDisk.addEventListener("animationend", () => {
+        newDisk.remove();
+      });
+    }
+
+    function pressedToggle() {
+      startSignalAnimation();
+      setTimeout(() => {
+        togglePower();
+      }, 1000); // Затримка перед виконанням дії
+    }
+
+    function pressedEject() {
+      startSignalAnimation();
+      setTimeout(() => {
+        ejectDisk();
+      }, 1000); // Затримка перед виконанням дії
+    }
+
+    function pressedPlayPause() {
+      startSignalAnimation();
+      const monitorImg = document.getElementById("monitor-img");
+
+      if (isPlaying) {
+        clearInterval(slideshowInterval);
+      } else {
+        slideshowInterval = setInterval(() => {
+          imageIndex = (imageIndex + 1) % images.length;
+          monitorImg.src = images[imageIndex];
+        }, 4000);
+      }
+
+      isPlaying = !isPlaying;
+    }
+      function sendSignal() {
+  toggleSpeakers();  // Відправляє сигнал
+   }
+    function startSignalAnimation() {
+      const signalContainer = document.getElementById("signal-visualization");
+      signalContainer.classList.remove("hidden");
+      const signalWave = document.createElement("div");
+      signalWave.classList.add("signal-wave");
+      signalContainer.appendChild(signalWave);
+
+      signalWave.addEventListener("animationend", () => {
+        signalWave.remove();
+      });
+
+      // Оновлення позиції сигналу для анімації
+      setTimeout(() => {
+        signalContainer.classList.add("hidden");
+      }, 3000);
+    }
+
+    // Хвилі на колонках
+    let waveActive = false;  // Стан для визначення, чи активна хвиля
+    function toggleSpeakers() {
+  waveActive = !waveActive;  // Перемикаємо стан хвилі
+  const wavesContainer = document.getElementById("waves-container");
+
+  if (waveActive) {
+    // Якщо хвиля активна, створюємо нові хвилі
+    const speakers = document.querySelectorAll(".speaker");
+    speakers.forEach((speaker, index) => {
+      const wave = document.createElement("div");
+      wave.classList.add("speaker-wave");
+      speaker.appendChild(wave);  // Додаємо хвилю до кожної колонки
+    });
+  } else {
+    // Якщо хвиля деактивована, видаляємо всі хвилі
+    const waves = document.querySelectorAll(".speaker-wave");
+    waves.forEach(wave => wave.remove());
+  }
+
+  startSignalAnimation();  // Додаємо виклик анімації сигналу
+}
+  </script>
+</body>
+</html>

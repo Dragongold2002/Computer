@@ -1,0 +1,445 @@
+body {
+  background: #222;
+  color: white;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+#setup {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 40px;
+}
+
+#remote {
+  width: 160px;
+  height: 440px;
+  background: #555;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: inset 0 0 5px #000;
+}
+
+#remote button {
+  width: 110px;
+  height: 60px;
+  font-size: 18px;
+  background: #ccc;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#remote-led {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: gray;
+  margin: 10px auto;
+}
+
+#monitor-img {
+  display: none;
+}
+
+#computer {
+  display: flex;
+  gap: 40px;
+}
+
+#monitor-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#monitor {
+  width: 300px;
+  height: 200px;
+  border: 5px solid #888;
+  border-radius: 8px;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#monitor-leg {
+  width: 20px;
+  height: 30px;
+  background: #666;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+#monitor-base {
+  width: 100px;
+  height: 10px;
+  background: #444;
+  margin-top: 5px;
+  border-radius: 8px;
+}
+
+#monitor img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#system-block {
+  width: 80px;
+  height: 240px;
+  background: #444;
+  border: 5px solid #888;
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 10px;
+  gap: 15px;
+}
+
+.fake-btn {
+  width: 30px;
+  height: 30px;
+  background: #777;
+  border-radius: 4px;
+}
+
+.fake-btn.small {
+  width: 20px;
+  height: 20px;
+  background: #666;
+}
+
+.fake-btn.small2 {
+  width: 20px;
+  height: 20px;
+  margin-left: 40px;
+  background: cyan;
+  border-radius: 5px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signal {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 30px;
+  height: 30px;
+  background: green;
+  border-radius: 50%;
+  opacity: 0;
+  animation: signal-animation 1.5s forwards;
+}
+
+@keyframes signal-animation {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Хвилі на колонках */
+.speaker-wave {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(0, 255, 0, 0.5);
+  animation: wave-animation 1s infinite;
+}
+
+@keyframes wave-animation {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+.fake-btn.small3 {
+  width: 20px;
+  height: 20px;
+  margin-left: 40px;
+  background: #666;
+}
+
+.fake-btn.small4 {
+  width: 20px;
+  height: 20px;
+  margin-left: -30px;
+  background: #666;
+}
+
+#led {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: gray;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes ledBlink {
+  0%, 100% { background: red; }
+  50% { background: gray; }
+}
+
+.btnpower {
+  width: 20px;
+  height: 20px;
+  margin-top: 0%;
+  margin-left: 0%;
+  background: darkred;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#btnpower {
+  border-radius: 4px;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.disko {
+  position: relative;
+  width: 60px;
+  height: 10px;
+  margin: 5px auto;
+  background: darkslategray;
+  border-radius: 5px;
+  overflow: visible;
+}
+
+/* Стиль бублика */
+.disk {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  border: 10px solid silver;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #aaa, transparent 80px);
+  z-index: 9999;
+}
+
+.disk.animate {
+  animation: fall 2s ease forwards;
+}
+
+/* Анімація вниз */
+@keyframes fall {
+  to {
+    transform: translateX(-50%) translateY(600px);
+    opacity: 0;
+  }
+}
+
+#table {
+  width: 460px;
+  height: 30px;
+  background: sienna;
+  margin-top: -15px;
+  border-radius: 6px;
+  position: relative;
+  box-shadow: inset 0 0 10px #552, 0 5px 10px #111;
+  margin-left: 180px;
+  z-index: 1;
+}
+
+#table::before,
+#table::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 240px;
+  background: #4b2e19;
+  bottom: -240px;
+  border-radius: 4px;
+  box-shadow: inset 0 0 5px #000;
+}
+
+#table::before {
+  left: 20px;
+}
+
+#table::after {
+  right: 20px;
+}
+
+/* Анімація сигналу */
+#signal-visualization {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.signal-wave {
+  position: absolute;
+  top: 10px;
+  left: -40px;
+  width: 100px;
+  height: 10px;
+  background: rgba(0, 255, 0, 0.8);
+  border-radius: 4px;
+  animation: signal 1.5s forwards;
+}
+
+@keyframes signal {
+  0% {
+    left: -40px;
+    opacity: 1;
+  }
+  100% {
+    left: 40px;
+    opacity: 0;
+  }
+}
+
+#empty-button {
+  width: 110px;
+  height: 60px;
+  font-size: 18px;
+  background: #777;
+  border: none;
+  border-radius: 5px;
+  cursor: not-allowed;
+  color: #fff;
+}
+
+#pause-play {
+  width: 110px;
+  height: 60px;
+  font-size: 18px;
+  background: #f39c12;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#pause-play.paused {
+  background: #e74c3c;
+}
+
+#pause-play img {
+  width: 20px;
+  height: 20px;
+}
+
+@keyframes powerOn {
+  0% {
+    background: gray;
+  }
+  100% {
+    background: green;
+  }
+}
+
+#remote-led.on {
+  animation: powerOn 0.5s ease-out forwards;
+  background: green;
+}
+
+/* Колонки над екраном */
+#speakers-container {
+  position: absolute;
+  top: 20px; /* Колонки будуть завжди над екраном */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-evenly; /* Розподіляємо колонки рівно */
+  width: 300px; /* Ширина контейнера для колонок */
+  visibility: visible; /* Колонки завжди видимі */
+}
+
+/* Стиль для колонок (3 колонки) */
+.speaker {
+  width: 80px;
+  height: 120px;
+  background: #444;
+  border-radius: 12px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin: 0 10px; /* Відступи між колонками */
+}
+
+/* Стиль для динаміків в колонці */
+.speaker .inner-speaker {
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, gray, black, gray, black);
+  border-radius: 50%;
+}
+
+/* Хвилі, що виходять з колонок */
+.speaker-wave {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: rgba(0, 255, 255, 0.7); /* Голубий колір */
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  animation: waveAnimation 1.5s infinite forwards;
+  pointer-events: none; /* Хвилі не будуть впливати на інші елементи */
+}
+
+@keyframes waveAnimation {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2);
+  }
+}
+
+#waves-container {
+  position: absolute;
+  top: 30px;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+  z-index: 10;
+}

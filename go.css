@@ -213,7 +213,8 @@ body {
 .btnpower {
   width: 20px;
   height: 20px;
-  margin-left: -60px;
+  margin-top: -35px;
+  margin-left: -20px;
   background: darkred;
   border-radius: 4px;
   cursor: pointer;
@@ -273,6 +274,7 @@ body {
   position: relative;
   box-shadow: inset 0 0 10px #552, 0 5px 10px #111;
   margin-left: 180px;
+  z-index: 1;
 }
 
 #table::before,

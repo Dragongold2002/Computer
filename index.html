@@ -44,15 +44,14 @@
         <div id="led"></div>
         <div class="fake-btn"></div>
         <div class="fake-btn small"></div>
-        <div class="fake-btn small2" onclick="toggleSpeakers()"> <!-- Перемикаємо функцію -->
+        <div class="fake-btn small2" onclick="toggleSpeakers()" ></div> <!-- Перемикаємо функцію -->
           <div class="btnpower" onclick="togglePower()"></div>
-        </div>
         <div class="fake-btn small3"><div class="fake-btn small4"></div></div>
         <div class="disko"></div>
       </div>
     </div>
   </div>
- <div id="table"></div>
+  <div id="table"></div>
   <div id="signal-visualization" class="hidden"></div>
   <div id="waves-container"></div>
 
@@ -73,7 +72,9 @@
     ];
     let imageIndex = 0;
 
-    function togglePower() {
+  function togglePower(event) {
+  if (event) event.stopPropagation();// Зупиняємо спливання події
+    
       const monitorImg = document.getElementById("monitor-img");
       const led = document.getElementById("led");
 
